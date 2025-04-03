@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extract URLs</title>
+</head>
+<body>
+    <textarea id="inputText" rows="10" cols="50" placeholder="Enter the paragraph"></textarea>
+    <br>
+    <button onclick="extractUrls()">Extract URLs</button>
+    <p>Extracted URLs:</p>
+    <textarea id="outputText" rows="10" cols="50" readonly></textarea>
+    <br>
+    <button onclick="copyUrls()">Copy URLs</button>
+
+    <script>
+        function extractUrls() {
+            const inputText = document.getElementById("inputText").value;
+            
+            // Regular expression to match URLs
+            const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
+            
+            // Extract URLs using match method
+            const urls = inputText.match(urlRegex);
+            
+            if (urls) {
+                // Join the URLs with a comma
+                const urlsWithComma = urls.join(', ');
+                document.getElementById("outputText").value = urlsWithComma;
+            } else {
+                document.getElementById("outputText").value = "No URLs found";
+            }
+        }
+        
+        function copyUrls() {
+            const outputText = document.getElementById("outputText");
+            outputText.select();
+            outputText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            alert("URLs copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
